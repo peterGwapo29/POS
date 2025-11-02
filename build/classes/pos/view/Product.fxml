@@ -30,13 +30,6 @@
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icon/icons8-product-48.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -114,24 +107,25 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <TableView layoutX="212.0" layoutY="106.0" prefHeight="694.0" prefWidth="890.0">
+      <TableView fx:id="tableView" layoutX="222.0" layoutY="206.0" prefHeight="310.0" prefWidth="869.0">
          <columns>
-            <TableColumn prefWidth="40.0" text="ID" />
-            <TableColumn prefWidth="59.0" text="Name" />
-            <TableColumn prefWidth="63.0" text="Description" />
-            <TableColumn prefWidth="56.0" text="Category" />
-            <TableColumn prefWidth="55.0" text="Supplier" />
-            <TableColumn prefWidth="55.0" text="Sku" />
-            <TableColumn prefWidth="55.0" text="Barcode" />
-            <TableColumn prefWidth="60.0" text="Inventory" />
-            <TableColumn prefWidth="58.0" text="Base Unit" />
-            <TableColumn prefWidth="55.0" text="Price" />
-            <TableColumn prefWidth="55.0" text="Cost" />
-            <TableColumn prefWidth="55.0" text="Initial Stock" />
-            <TableColumn prefWidth="55.0" text="Current Stock" />
-            <TableColumn prefWidth="55.0" text="Image" />
-            <TableColumn prefWidth="55.0" text="Isactive" />
-            <TableColumn prefWidth="55.0" text="Created At" />
+            <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="59.0" text="Name" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="71.0" text="Description" />
+            <TableColumn fx:id="categoryColumn" prefWidth="50.0" text="Category" />
+            <TableColumn fx:id="supplierColumn" prefWidth="50.0" text="Supplier" />
+            <TableColumn fx:id="skuColumn" prefWidth="55.0" text="SKU" />
+            <TableColumn fx:id="barcodeColumn" prefWidth="55.0" text="Barcode" />
+            <TableColumn fx:id="inventoryColumn" prefWidth="60.0" text="Inventory" />
+            <TableColumn fx:id="baseUnitColumn" prefWidth="58.0" text="Base Unit" />
+            <TableColumn fx:id="priceColumn" prefWidth="50.0" text="Price" />
+            <TableColumn fx:id="costColumn" prefWidth="50.0" text="Cost" />
+            <TableColumn fx:id="initialStockColumn" prefWidth="50.0" text="Initial Stock" />
+            <TableColumn fx:id="currentStockColumn" prefWidth="50.0" text="Current Stock" />
+            <TableColumn fx:id="imageColumn" prefWidth="55.0" text="Image" />
+            <TableColumn fx:id="activeColumn" prefWidth="55.0" text="Is Active" />
+            <TableColumn fx:id="createdAtColumn" prefWidth="55.0" text="Created At" />
+
          </columns>
       </TableView>
       <VBox alignment="CENTER" layoutX="60.0" layoutY="51.0" prefHeight="108.0" prefWidth="96.0">
@@ -163,5 +157,14 @@
             </Label>
          </children>
       </VBox>
+      <Button layoutX="223.0" layoutY="159.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Add Product">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/icons8-plus-50.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
