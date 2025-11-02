@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -23,25 +22,18 @@ import javafx.stage.Stage;
  *
  * @author Devbyte
  */
-public class DashboardController implements Initializable {
+public class ProductController implements Initializable {
 
-    @FXML
-    private Button productButton;
-    @FXML
-    private Button saleButton;
-    @FXML
-    private Button reportButton;
-    @FXML
-    private Label adminName1;
-    @FXML
-    private Label adminName;
     @FXML
     private Button logoutButton;
     @FXML
-    private Button dashboardButton;
+    private Label cashierName;
+    @FXML
+    private Label roleType;
     
     private String role;
     private String email;
+
 
     /**
      * Initializes the controller class.
@@ -63,20 +55,13 @@ public class DashboardController implements Initializable {
             logoutStage.close();
         }
     }
-
-    @FXML
-    private void handleProductAction(ActionEvent event) {
-        
-        if(event.getSource() == productButton){
-            System.out.println("Welcome Admin");
-        }
-    }
     
     public void setUserInfo(String email, String role) {
         this.email = email;
         this.role = role;
 
-        adminName.setText(email);
+        cashierName.setText(email);
+        roleType.setText(role);
     }
     
 }

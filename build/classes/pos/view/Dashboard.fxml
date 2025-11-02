@@ -17,7 +17,7 @@
         <URL value="@pos/css/dashboard.css" />
     </stylesheets>
     <children>
-      <VBox alignment="CENTER" layoutX="10.0" layoutY="69.0" prefHeight="275.0" prefWidth="230.0">
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="160.0" prefHeight="275.0" prefWidth="230.0">
          <children>
             <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="195.0" style="-fx-background-color: #940857;" text="Dashboard" textFill="WHITE">
                <font>
@@ -90,19 +90,11 @@
             </Button>
          </children>
       </VBox>
-      <HBox alignment="CENTER_RIGHT" layoutX="243.0" prefHeight="70.0" prefWidth="838.0">
+      <HBox alignment="CENTER" layoutX="243.0" prefHeight="70.0" prefWidth="838.0">
          <children>
-            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icon/icons8-profile-48.png" />
-               </image>
-               <HBox.margin>
-                  <Insets right="18.0" />
-               </HBox.margin>
-            </ImageView>
             <Label fx:id="adminName1" style="-fx-font-family: Poppins;" text="Welcome,">
                <font>
-                  <Font name="Arial" size="18.0" />
+                  <Font name="Arial" size="24.0" />
                </font>
                <opaqueInsets>
                   <Insets />
@@ -113,7 +105,7 @@
             </Label>
             <Label fx:id="adminName" text="Admin">
                <font>
-                  <Font name="Arial" size="18.0" />
+                  <Font name="Arial" size="24.0" />
                </font>
                <opaqueInsets>
                   <Insets />
@@ -124,7 +116,8 @@
             </Label>
          </children>
       </HBox>
-      <Button fx:id="logoutButton" layoutX="29.0" layoutY="727.0" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="50.0" prefWidth="195.0" style="-fx-background-color: #940857; -fx-cursor: hand;" text="Logout" textFill="WHITE">
+      <Rectangle arcWidth="5.0" fill="#f4f7fa" height="705.0" layoutX="252.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="810.0" />
+      <Button fx:id="logoutButton" layoutX="27.0" layoutY="715.0" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="50.0" prefWidth="195.0" style="-fx-background-color: #940857; -fx-cursor: hand;" text="Logout" textFill="WHITE">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
@@ -139,6 +132,25 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Rectangle arcWidth="5.0" fill="#f4f7fa" height="705.0" layoutX="247.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="810.0" />
+      <VBox alignment="CENTER" layoutX="89.0" layoutY="31.0" prefHeight="85.0" prefWidth="85.0">
+         <children>
+            <ImageView fitHeight="44.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/icons8-profile-48.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="8.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label style="-fx-font-family: Poppins;" text="ADMIN">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

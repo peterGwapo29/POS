@@ -104,27 +104,31 @@ public class LoginController implements Initializable {
             root = loader.load();
                     
             DashboardController dashboardController = loader.getController();
-            dashboardController.setAdminName(email);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            closeWindow();
+            dashboardController.setUserInfo(email, role);
             
         }else{
             loader = new FXMLLoader(getClass().getResource("/pos/view/pos.fxml"));
             root = loader.load();
-                    
-//            DashboardController dashboardController = loader.getController();
-//            dashboardController.setAdminName(email);
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-            closeWindow();
+            
+            PosController posController = loader.getController();
+            posController.setUserInfo(email, role);
         }
+        
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        closeWindow();
+    }
+    
+    private void switchScene(String fxmlPath) throws IOException {
+        Stage currentStage = (Stage) loginButton.getScene().getWindow();
+        currentStage.close();
+
+        Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
     
     private void closeWindow(){
@@ -135,4 +139,5 @@ public class LoginController implements Initializable {
     private void fxmlView(){
         System.out.println("asd");
     }
+    
 }
