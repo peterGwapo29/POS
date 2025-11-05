@@ -135,9 +135,18 @@ public class RegisterController implements Initializable {
             int rows = st.executeUpdate();
             
             if (rows > 0) {
-                System.out.println("Registration successfully.");
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+                alert.setTitle("Registration Successful");
+                alert.setHeaderText(null);
+                alert.setContentText("Your account has been registered successfully!");
+                alert.showAndWait();
+                
             } else {
-                System.out.println("Registration failed.");
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+                alert.setTitle("Registration Failed");
+                alert.setHeaderText(null);
+                alert.setContentText("An error occurred while registering your account. Please try again.");
+                alert.showAndWait();
             }
         }catch(Exception e){
             System.out.println("Error: " + e.getMessage());
@@ -157,5 +166,12 @@ public class RegisterController implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
+    }
+    private void handleMessage(String titleMsg, String contextMsg){
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        alert.setTitle(titleMsg);
+        alert.setHeaderText(null);
+        alert.setContentText(contextMsg);
+        alert.showAndWait();
     }
 }

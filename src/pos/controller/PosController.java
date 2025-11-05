@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package pos.controller;
 
 import java.io.IOException;
@@ -16,40 +12,50 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pos.sidebar.SBController;
 
-/**
- * FXML Controller class
- *
- * @author Devbyte
- */
 public class PosController implements Initializable {
 
-    @FXML
     private Button logoutButton;
-    @FXML
     private Button productButton;
     @FXML
     private Label cashierName;
     @FXML
     private Label roleType;
     @FXML
-    private Label cashierName2;
-    
+    private AnchorPane sidebarContainer;
+    @FXML
+    private AnchorPane contentArea;
+
     private String email;
     private String role;
+    @FXML
+    private AnchorPane rootPane;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        
+    }
 
-    @FXML
+    private void loadSidebar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pos/sidebar/sidebar.fxml"));
+            AnchorPane sidebar = loader.load();
+
+            SBController sbController = loader.getController();
+
+            sbController.setUserInfo(email, role);
+            sidebarContainer.getChildren().setAll(sidebar);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void handleLogoutButton(ActionEvent event) throws IOException {
-        if(event.getSource() == logoutButton){
+        if (event.getSource() == logoutButton) {
             Parent parent = FXMLLoader.load(getClass().getResource("/pos/view/Login.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
@@ -60,29 +66,27 @@ public class PosController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleProductAction(ActionEvent event)throws IOException {
-        if(event.getSource() == productButton){
+    private void handleProductAction(ActionEvent event) throws IOException {
+        if (event.getSource() == productButton) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pos/view/Product.fxml"));
+            Parent root = loader.load();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/pos/view/Product.fxml"));
-        Parent root = loader.load();
+            ProductController productController = loader.getController();
+            productController.setUserInfo(this.email, this.role);
 
-        ProductController productController = loader.getController();
-        productController.setUserInfo(this.email, this.role);
-
-        // Replace current scene (reuse same window)
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         }
     }
-    
+
     public void setUserInfo(String email, String role) {
         this.email = email;
         this.role = role;
 
         cashierName.setText(email);
-        cashierName2.setText(email);
         roleType.setText(role);
+
+        loadSidebar();
     }
 }

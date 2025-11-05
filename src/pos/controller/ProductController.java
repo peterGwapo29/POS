@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package pos.controller;
 
 import java.sql.Connection;
@@ -21,30 +17,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pos.model.DBconnection;
 import pos.model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import pos.sidebar.SBController;
 
-/**
- * FXML Controller class
- *
- * @author Devbyte
- */
 public class ProductController implements Initializable {
 
-    @FXML
     private Button logoutButton;
-    @FXML
     private Label cashierName;
-    @FXML
     private Label roleType;
-    
+    @FXML
+    private AnchorPane sidebarContainer;
+
     private String role;
     private String email;
-    
+
     @FXML private TableView<Product> tableView;
     @FXML private TableColumn<Product, Integer> idColumn;
     @FXML private TableColumn<Product, String> nameColumn;
@@ -63,42 +55,55 @@ public class ProductController implements Initializable {
     @FXML private TableColumn<Product, Boolean> activeColumn;
     @FXML private TableColumn<Product, String> createdAtColumn;
 
-    
     private Connection conn;
+    @FXML
+    private AnchorPane rootPane;
+    @FXML
+    private Button addProductButton;
 
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        conn = (Connection) DBconnection.getConnection();
+        loadSidebar();
+        conn = DBconnection.getConnection();
         setupTableColumns();
         loadProductData();
     }
 
-    @FXML
-    private void handleLogoutButton(ActionEvent event) throws IOException {
-        if(event.getSource() == logoutButton){
-            Parent parent = FXMLLoader.load(getClass().getResource("/pos/view/Login.fxml"));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(parent));
-            stage.show();
+    private void loadSidebar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pos/sidebar/Sidebar.fxml"));
+            AnchorPane sidebar = loader.load();
 
-            Stage logoutStage = (Stage) logoutButton.getScene().getWindow();
-            logoutStage.close();
+            SBController sidebarController = loader.getController();
+            sidebarController.setUserInfo(this.email, this.role);
+
+            sidebarContainer.getChildren().setAll(sidebar);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    
+
+    private void handleLogoutButton(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("/pos/view/Login.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Stage logoutStage = (Stage) logoutButton.getScene().getWindow();
+        logoutStage.close();
+    }
+
     public void setUserInfo(String email, String role) {
         this.email = email;
         this.role = role;
 
         cashierName.setText(email);
         roleType.setText(role);
+        
+        
     }
-    
-     private void setupTableColumns() {
+
+    private void setupTableColumns() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -116,13 +121,12 @@ public class ProductController implements Initializable {
         activeColumn.setCellValueFactory(new PropertyValueFactory<>("isActive"));
         createdAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
     }
-     
-       private void loadProductData() {
-        ObservableList<Product> productList = FXCollections.observableArrayList();
 
-        String sql = "SELECT id, name, description, categoryId, supplierId, sku, barcode, " +
-                     "inventoryTracking, baseUnit, price, cost, initialStock, currentStock, " +
-                     "image, isActive, createdAt FROM product";
+    private void loadProductData() {
+        ObservableList<Product> productList = FXCollections.observableArrayList();
+        String sql = "SELECT id, name, description, categoryId, supplierId, sku, barcode, "
+                   + "inventoryTracking, baseUnit, price, cost, initialStock, currentStock, "
+                   + "image, isActive, createdAt FROM product";
 
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -146,16 +150,13 @@ public class ProductController implements Initializable {
                         rs.getBoolean("isActive"),
                         rs.getTimestamp("createdAt")
                 );
-
                 productList.add(product);
             }
 
             tableView.setItems(productList);
-
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error loading products: " + e.getMessage());
         }
     }
-    
 }
