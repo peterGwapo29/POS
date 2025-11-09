@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import pos.sidebar.SBController;
+import session.UserSession;
 
 public class PosController implements Initializable {
 
@@ -29,24 +29,20 @@ public class PosController implements Initializable {
     @FXML
     private AnchorPane contentArea;
 
-    private String email;
-    private String role;
     @FXML
     private AnchorPane rootPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        loadSidebar();
+        cashierName.setText( UserSession.getEmail() );
+        roleType.setText( UserSession.getRole() );
     }
 
     private void loadSidebar() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pos/sidebar/sidebar.fxml"));
             AnchorPane sidebar = loader.load();
-
-            SBController sbController = loader.getController();
-
-            sbController.setUserInfo(email, role);
             sidebarContainer.getChildren().setAll(sidebar);
 
         } catch (IOException e) {
@@ -71,22 +67,9 @@ public class PosController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pos/view/Product.fxml"));
             Parent root = loader.load();
 
-            ProductController productController = loader.getController();
-            productController.setUserInfo(this.email, this.role);
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         }
-    }
-
-    public void setUserInfo(String email, String role) {
-        this.email = email;
-        this.role = role;
-
-        cashierName.setText(email);
-        roleType.setText(role);
-
-        loadSidebar();
     }
 }

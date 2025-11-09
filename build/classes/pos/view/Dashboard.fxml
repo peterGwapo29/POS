@@ -28,15 +28,23 @@
                         <Font name="Arial" size="24.0" />
                     </font>
                 </Label>
-                <Label fx:id="adminName" text="Admin">
+                <Label fx:id="adminName" text="Admin Name">
                     <font>
                         <Font name="Arial" size="24.0" />
                     </font>
                 </Label>
+            <Label fx:id="roleText" text="(Role)">
+               <font>
+                  <Font name="Arial" size="24.0" />
+               </font>
+            </Label>
             </children>
         </HBox>
 
         <!-- Example Dashboard Main Area -->
-        <AnchorPane fx:id="contentArea" layoutX="250.0" layoutY="80.0" prefHeight="700.0" prefWidth="1190.0" style="-fx-background-color: #FAF6F0;" />
+        <AnchorPane fx:id="contentArea" layoutX="250.0" layoutY="80.0" prefHeight="700.0" prefWidth="1190.0" style="-fx-background-color: #FAF6F0;">
+         <children>
+            <Label layoutX="510.0" layoutY="304.0" text="Dashboard" />
+         </children></AnchorPane>
     </children>
 </AnchorPane>

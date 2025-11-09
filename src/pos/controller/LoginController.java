@@ -20,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import session.UserSession;
 
 public class LoginController implements Initializable {
 
@@ -66,8 +67,8 @@ public class LoginController implements Initializable {
 
                 if (rs.next()) {
                     String role = rs.getString("role");
+                    UserSession.setUser(email, role);
                     checkRole(role, email);
-                    storeUser(email, password, role);
                 } else {
                     System.out.println("Invalid email or password.");
                 }
@@ -129,23 +130,4 @@ public class LoginController implements Initializable {
         Stage loginStage = (Stage) loginButton.getScene().getWindow();
         loginStage.close();
     }
-    
-    private void storeUser(String email, String password, String role){
-        String status = "active";
-        try{
-            String sql = "INSERT INTO user_log (email, password, role, status) VALUES (?, ?, ?, ?)";
-            
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setString(1, email);
-            st.setString(2, password);
-            st.setString(3, role);
-            st.setString(4, status);
-            
-            st.executeUpdate();
-            
-        }catch(Exception e){
-            System.out.println("Error: " + e);
-        }
-    }
-    
 }

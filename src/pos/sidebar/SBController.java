@@ -19,13 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-/**
- * FXML Controller class
- *
- * @author Devbyte
- */
-
+import session.UserSession;
 
 public class SBController implements Initializable {
 
@@ -47,22 +41,16 @@ public class SBController implements Initializable {
     private Button btnReport;
     @FXML
     private Button btnLogout;
-
-    /**
-     * Initializes the controller class.
-     */
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
-    
-
-
-    public void setUserInfo(String email, String role) {
-        cashierName.setText(email);
-        roleType.setText(role);
+        cashierName.setText(UserSession.getEmail());
+        roleType.setText(UserSession.getRole());
+        
+        if (UserSession.getRole() != null && UserSession.getRole().equalsIgnoreCase("cashier")) {
+            btnDashboard.setVisible(false);
+            btnDashboard.setManaged(false);
+        }
     }
 
     @FXML

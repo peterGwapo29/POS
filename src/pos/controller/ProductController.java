@@ -73,10 +73,6 @@ public class ProductController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pos/sidebar/Sidebar.fxml"));
             AnchorPane sidebar = loader.load();
-
-            SBController sidebarController = loader.getController();
-            sidebarController.setUserInfo(this.email, this.role);
-
             sidebarContainer.getChildren().setAll(sidebar);
         } catch (IOException e) {
             e.printStackTrace();
